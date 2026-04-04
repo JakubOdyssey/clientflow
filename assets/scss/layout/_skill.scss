@@ -1,0 +1,394 @@
+@use "../utilities" as *;
+
+
+// skill-section-18 css
+
+.skill-section-18 {
+    margin-top: -1px;
+    &__wrapper{
+        background: #11151C;
+        @include breakpoint(lg) {
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+    }
+
+    &__wrap {
+        display: grid;
+        grid-template-columns: 707px 1fr;
+
+        @include breakpoint(xl) {
+            grid-template-columns: 570px 1fr;
+        }
+
+        @include breakpoint(lg) {
+            grid-template-columns: 410px 1fr;
+        }
+
+        @include breakpoint(md) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__content {
+        display: flex;
+        gap: 100px;
+        margin-left: 20px;
+        flex-wrap: wrap;
+
+        @include breakpoint(xl) {
+            gap: 50px;
+        }
+
+        @include breakpoint(lg) {
+            gap: 40px;
+        }
+
+        @include breakpoint(md) {
+            justify-content: space-between;
+            margin-left: 0;
+            gap: 0;
+        }
+    }
+
+    &__sub-title {
+        @include breakpoint(md) {
+            margin-bottom: 30px;
+        }
+
+        .title {
+            font-weight: 600;
+            font-size: 48px;
+            line-height: 58px;
+            color: #FFFFFF;
+            position: relative;
+
+            @include breakpoint(sm) {
+                font-size: 36px;
+                line-height: 41px;
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 25%;
+                background: rgba(255, 255, 255, 0.1);
+                height: 1px;
+                width: 520px;
+
+                @include breakpoint(xl) {
+                    width: 390px;
+                }
+
+                @include breakpoint(lg) {
+                    width: 235px;
+                }
+
+                @include breakpoint(md) {
+                    left: 24%;
+                }
+
+                @include breakpoint(sm) {
+                    display: none;
+                }
+            }
+
+        }
+    }
+
+    &__list {
+        margin-bottom: 50px;
+
+        @include breakpoint(sm) {
+            margin-bottom: 30px;
+        }
+
+        .title {
+            font-weight: 600;
+            font-size: 36px;
+            line-height: 58px;
+            color: #FFFFFF;
+            margin-bottom: 4px;
+
+            @include breakpoint(xxl) {
+                font-size: 32px;
+                line-height: 55px;
+            }
+
+            @include breakpoint(lg) {
+                font-size: 30px;
+                line-height: 42px;
+            }
+        }
+
+        & ul {
+            li {
+                list-style: none;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 26px;
+                color: rgba(255, 255, 255, 0.5);
+                padding-left: 25px;
+                position: relative;
+
+                &::before {
+                    position: absolute;
+                    content: '';
+                    height: 6px;
+                    width: 6px;
+                    left: 6px;
+                    top: 40%;
+                    background: rgba(255, 255, 255, 0.5);
+                    border-radius: 100px;
+                }
+            }
+        }
+    }
+
+    &__item-wrapper {
+        display: flex;
+        margin-top: 40px;
+
+        @include breakpoint(lg) {
+            flex-wrap: wrap;
+        }
+    }
+
+    &__items {
+        width: 100%;
+
+        &-2 {
+            position: relative;
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: 80px;
+                top: 59px;
+                width: 1px;
+                height: 332px;
+                background: rgba(255, 255, 255, 0.1);
+
+                @include breakpoint(xl) {
+                    left: 45px;
+                }
+
+                @include breakpoint(lg) {
+                    display: none;
+                }
+            }
+        }
+
+        .skill-item {
+            display: grid;
+            grid-template-columns: 116px 1fr;
+            margin-bottom: 50px;
+
+            @include breakpoint(lg) {
+                grid-template-columns: 116px 1fr;
+            }
+
+            @include breakpoint(sm) {
+                grid-template-columns: 1fr;
+                margin-bottom: 30px;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+
+                @include breakpoint(lg) {
+                    margin-bottom: 50px;
+                }
+
+                @include breakpoint(sm) {
+                    margin-bottom: 30px;
+                }
+            }
+
+            .icon {
+                height: 116px;
+                width: 116px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        .skill-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            column-gap: 20px;
+            flex-wrap: wrap;
+            row-gap: 15px;
+            padding: 20px 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 58px;
+            position: relative;
+            width: 512px;
+
+            @include breakpoint(xxl) {
+                width: 485px;
+            }
+
+            @include breakpoint(xl) {
+                width: 425px;
+            }
+
+            @include breakpoint(lg) {
+                width: 100%;
+            }
+
+            .left-content {
+                .title {
+                    font-weight: 600;
+                    font-size: 32px;
+                    line-height: 30px;
+                    color: #FFFFFF;
+                }
+
+                & span {
+                    font-weight: 500;
+                    font-size: 15px;
+                    line-height: 16px;
+                    color: rgba(255, 255, 255, 0.5);
+
+                }
+            }
+
+            .text-span {
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 18px;
+                color: var(--rr-color-common-white);
+                padding: 10px 16px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 20px;
+                transition: all .3s ease-in-out;
+
+                &:hover {
+                    background: #3F5AF3;
+
+                    & a {
+                        color: var(--rr-color-common-white);
+                    }
+                }
+            }
+        }
+
+        .skill-item-2 {
+            display: grid;
+            grid-template-columns: 512px 1fr;
+            position: relative;
+            padding-left: 160px;
+
+            @include breakpoint(xxl) {
+                grid-template-columns: 485px 1fr;
+            }
+
+            @include breakpoint(xl) {
+                grid-template-columns: 425px 1fr;
+                padding-left: 90px;
+            }
+
+            @include breakpoint(lg) {
+                grid-template-columns: 1fr auto;
+                padding-left: 0px;
+            }
+
+            @include breakpoint(sm) {
+                grid-template-columns: auto;
+                padding-left: 0px;
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: -10px;
+                top: 50%;
+                width: 170px;
+                height: 1px;
+                background: rgba(255, 255, 255, 0.1);
+
+                @include breakpoint(xxxl) {
+                    left: -12px;
+                    top: 50%;
+                    width: 174px;
+                }
+
+                @include breakpoint(xxl) {
+                    left: -14px;
+                    top: 50%;
+                    width: 174px;
+                }
+
+                @include breakpoint(xl) {
+                    width: 95px;
+                    left: -5px;
+                }
+
+                @include breakpoint(lg) {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+
+// experience-section-19 css
+.experience-section-19 {
+    &__wrapper {
+        position: relative;
+        max-height: 1000px;
+        overflow: hidden;
+
+        .experience-19-video {
+            width: 100%;
+            max-height: 1000px;
+            object-fit: cover;
+        }
+    }
+
+    &__item {
+        position: absolute;
+        top: 48%;
+        left: 0;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 0 30px;
+        width: 100%;
+        @include breakpoint(sm) {
+            top: 45px;
+            padding: 0 6px;
+        }
+
+    }
+
+    &__content {
+        .title {
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 1;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+            color: #999999;
+            text-align: center;
+            margin: 0;
+        }
+        & span{
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 1;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+            color: #fff;
+            margin: 0;
+        }
+    }
+}
