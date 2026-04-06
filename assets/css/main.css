@@ -33019,5 +33019,357 @@ START: Footer CSS
   color: #fff;
   margin: 0;
 }
+/* ===== CLIENTFLOW PRICING FIX ===== */
+
+.clean-pricing {
+    padding: 34px 28px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 100%);
+}
+
+.clean-pricing .plan {
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 18px;
+}
+
+.clean-pricing .price {
+    font-size: 56px;
+    line-height: 1.05;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+}
+
+.clean-pricing .price-small {
+    font-size: 18px;
+    font-weight: 400;
+    color: #bcbcbc;
+    white-space: nowrap;
+}
+
+.clean-pricing .pricing-desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #bdbdbd;
+    margin-bottom: 22px;
+}
+
+.pricing-feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+}
+
+.pricing-feature-list li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 9px;
+    color: #d2d2d2;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.pricing-feature-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #6d7cff;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.pricing-btn {
+    width: 100%;
+    justify-content: center;
+    margin-top: auto;
+    min-height: 56px;
+}
+
+.featured-plan {
+    border: 1px solid rgba(109, 124, 255, 0.35);
+    box-shadow: 0 0 0 1px rgba(109, 124, 255, 0.08);
+    transform: translateY(-6px);
+}
+
+.pricing-badge {
+    display: inline-block;
+    align-self: flex-start;
+    margin-bottom: 14px;
+    padding: 5px 11px;
+    border-radius: 30px;
+    background: rgba(109, 124, 255, 0.12);
+    border: 1px solid rgba(109, 124, 255, 0.28);
+    color: #aeb8ff;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.pricing-note {
+    margin-top: 28px;
+    text-align: center;
+    color: #8e8e8e;
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 820px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 991px) {
+    .clean-pricing {
+        padding: 34px 24px;
+    }
+
+    .clean-pricing .price {
+        font-size: 48px;
+    }
+
+    .featured-plan {
+        transform: none;
+      }
+      .price-period {
+    font-size: 16px;
+    color: #bcbcbc;
+    margin-top: -6px;
+    margin-bottom: 22px;
+}
+/* ===== CLIENTFLOW PRICING FINAL POLISH ===== */
+
+.clean-pricing {
+    padding: 34px 28px;
+    min-height: 520px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 100%);
+}
+
+.clean-pricing .plan {
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 18px;
+}
+
+.clean-pricing .price {
+    font-size: 56px;
+    line-height: 1.05;
+    font-weight: 700;
+    margin-bottom: 0;
+    letter-spacing: -2px;
+}
+
+.price-period {
+    font-size: 15px;
+    color: #9f9f9f;
+    margin-top: 6px;
+    margin-bottom: 18px;
+}
+
+.clean-pricing .pricing-desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #bdbdbd;
+    margin-bottom: 22px;
+}
+
+.pricing-feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+}
+
+.pricing-feature-list li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 8px;
+    color: #d2d2d2;
+    font-size: 13.5px;
+    line-height: 1.55;
+}
+
+.pricing-feature-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #6d7cff;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.pricing-btn {
+    width: 100%;
+    min-height: 56px;
+    justify-content: center;
+    margin-top: auto;
+    transition: all 0.3s ease;
+}
+
+.pricing-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.95;
+}
+
+.pricing-item {
+    transition: all 0.3s ease;
+}
+
+.pricing-item:hover {
+    transform: translateY(-6px);
+    border-color: rgba(109, 124, 255, 0.4);
+}
+
+.featured-plan {
+    border: 1px solid rgba(109, 124, 255, 0.35);
+    box-shadow: 0 0 0 1px rgba(109, 124, 255, 0.08);
+}
+
+.pricing-badge {
+    display: inline-block;
+    align-self: flex-start;
+    margin-bottom: 14px;
+    padding: 5px 11px;
+    border-radius: 30px;
+    background: rgba(109, 124, 255, 0.12);
+    border: 1px solid rgba(109, 124, 255, 0.28);
+    color: #aeb8ff;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.pricing-note {
+    margin-top: 28px;
+    text-align: center;
+    color: #8e8e8e;
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 820px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 991px) {
+    .clean-pricing {
+        padding: 30px 22px;
+        min-height: auto;
+    }
+
+    .clean-pricing .price {
+        font-size: 44px;
+    }
+}
+/* ===== FIX PRICE POSITION ===== */
+
+.price-period {
+    display: block;
+    font-size: 15px;
+    color: #9f9f9f;
+
+    margin-top: 4px;
+    margin-bottom: 18px;
+}
+
+.clean-pricing .price {
+    margin-bottom: 0;
+}
+/* ===== CLIENTFLOW PRICE BLOCK FIX ===== */
+
+.price-block {
+    margin-bottom: 18px;
+}
+
+.price-block .price {
+    margin-bottom: 0 !important;
+    line-height: 1 !important;
+}
+
+.price-block .price-period {
+    display: block;
+    margin-top: 6px;
+    margin-bottom: 0;
+    font-size: 15px;
+    line-height: 1;
+    color: #9f9f9f;
+}
+
+.clean-pricing .pricing-desc {
+    margin-top: 0;
+}
+/* ===== CLIENTFLOW FORCE PRICE STACK ===== */
+
+.price-block {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 2px !important;
+    margin-bottom: 14px !important;
+}
+
+.price-block .price {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 0.95 !important;
+}
+
+.price-block .price-period {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    font-size: 15px !important;
+    color: #9f9f9f !important;
+}
+
+.clean-pricing .pricing-desc {
+    margin-top: 0 !important;
+}
+/* ===== CLIENTFLOW TIGHTER PRICE SPACING ===== */
+
+.price-block .price {
+    margin: 0 !important;
+    line-height: 0.82 !important;
+}
+
+.price-block .price-period {
+    display: block !important;
+    margin-top: -6px !important;
+    margin-bottom: 16px !important;
+    line-height: 1 !important;
+}
+.testi-thumb img {
+    width: 90px;
+    filter: drop-shadow(0 0 10px rgba(80, 120, 255, 0.4));
+}
+
+/* ===== CLIENTFLOW ICON POSITION FIX ===== */
+
+.testimonial-section .testi-thumb {
+    position: relative !important;
+    margin-top: -55px !important;
+    margin-bottom: 12px !important;
+    z-index: 5 !important;
+}
+
+.testimonial-section .testi-thumb img {
+    width: 90px !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+    position: relative !important;
+    top: 14px !important;
+    z-index: 6 !important;
+    filter: drop-shadow(0 0 10px rgba(80, 120, 255, 0.4)) !important;
+}
 
 /*# sourceMappingURL=main.css.map */
