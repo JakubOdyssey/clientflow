@@ -1866,3 +1866,47 @@ if (document.querySelectorAll(".portfolio-19").length > 0) {
   
 
 })(jQuery);
+
+// ClientFlow Cookie Popup
+document.addEventListener("DOMContentLoaded", function () {
+  const cookiePopup = document.getElementById("cfCookiePopup");
+  const cookieToggle = document.getElementById("cfCookieToggle");
+  const acceptBtn = document.getElementById("cfAcceptCookies");
+  const rejectBtn = document.getElementById("cfRejectCookies");
+
+  if (!cookiePopup || !cookieToggle || !acceptBtn || !rejectBtn) return;
+
+  const cookieChoice = localStorage.getItem("clientflowCookieChoice");
+
+  function showPopup() {
+    cookiePopup.classList.add("is-visible");
+    cookieToggle.classList.remove("is-visible");
+  }
+
+  function hidePopup() {
+    cookiePopup.classList.remove("is-visible");
+    cookieToggle.classList.add("is-visible");
+  }
+
+  if (!cookieChoice) {
+    setTimeout(() => {
+      showPopup();
+    }, 900);
+  } else {
+    cookieToggle.classList.add("is-visible");
+  }
+
+  acceptBtn.addEventListener("click", function () {
+    localStorage.setItem("clientflowCookieChoice", "accepted");
+    hidePopup();
+  });
+
+  rejectBtn.addEventListener("click", function () {
+    localStorage.setItem("clientflowCookieChoice", "rejected");
+    hidePopup();
+  });
+
+  cookieToggle.addEventListener("click", function () {
+    showPopup();
+  });
+});
