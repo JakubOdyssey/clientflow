@@ -33527,4 +33527,23 @@ START: Footer CSS
   background: #ffffff;
   color: #070a12;
 }
+
+/* ================================
+   ClientFlow Disabled Theme Switcher
+================================ */
+
+/*
+   Light mode is temporarily disabled.
+   The website is currently designed as a dark-mode-first experience.
+
+   To re-enable:
+   - remove display: none from #theme-toogle
+   - test all pages in light mode
+   - adjust backgrounds, text colors, images and placeholders
+*/
+
+#theme-toogle {
+  display: none !important;
+  pointer-events: none !important;
+}
 /*# sourceMappingURL=main.css.map */

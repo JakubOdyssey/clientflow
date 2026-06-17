@@ -1,0 +1,371 @@
+/* ==========================================
+   CLIENTFLOW RESPONSIVE
+   Desktop untouched
+========================================== */
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 1199px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .container {
+        max-width: 100%;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .row {
+        row-gap: 30px;
+    }
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 767px) {
+
+    html,
+    body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .container {
+        max-width: 100%;
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    /* =========================
+       GLOBAL SPACING
+    ========================= */
+
+    section {
+        padding-top: 70px !important;
+        padding-bottom: 70px !important;
+    }
+
+    .pt-130 {
+        padding-top: 80px !important;
+    }
+
+    .pb-130 {
+        padding-bottom: 80px !important;
+    }
+
+    /* =========================
+       TYPOGRAPHY
+    ========================= */
+
+    h1 {
+        font-size: 42px !important;
+        line-height: 1.08 !important;
+    }
+
+    h2,
+    .section-title {
+        font-size: 34px !important;
+        line-height: 1.15 !important;
+    }
+
+    h3 {
+        font-size: 24px !important;
+        line-height: 1.2 !important;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 1.65;
+    }
+
+    /* =========================
+       BOOTSTRAP LAYOUT
+    ========================= */
+
+    .row,
+    [class*="row"] {
+        flex-direction: column;
+    }
+
+    [class*="col-"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
+    }
+
+    /* =========================
+       BUTTONS
+    ========================= */
+
+    .btn,
+    button,
+    input[type="submit"],
+    .rr-primary-btn {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
+
+    /* =========================
+       IMAGES
+    ========================= */
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .service-thumb img,
+    .about-img img,
+    .about-img-2 img,
+    .faq-img img,
+    .project-thumb img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .header-logo img {
+        max-width: 180px;
+        height: auto;
+    }
+
+    /* =========================
+       HERO SECTION
+    ========================= */
+
+    .hero-section {
+        min-height: auto !important;
+        height: auto !important;
+        padding-top: 140px !important;
+        padding-bottom: 80px !important;
+    }
+
+    .hero-content {
+        min-height: auto !important;
+        text-align: left;
+    }
+
+    .hero-btn {
+        margin-top: 30px;
+    }
+
+    /* usuń desktopowe grafiki hero */
+
+    .hero-images,
+    .hero-img {
+        display: none !important;
+    }
+
+    /* =========================
+       SIDEBAR MENU
+    ========================= */
+
+    .sidebar-area {
+        width: 90%;
+        max-width: 400px;
+    }
+
+    .side-menu-logo {
+        padding-right: 70px;
+    }
+
+    .sidebar-trigger.close {
+        top: 25px;
+        right: 20px;
+    }
+
+    /* =========================
+       HIDE DECORATIONS
+    ========================= */
+
+    .hero-shape,
+    .hero-bg-shape,
+    .bg-shape,
+    .round-shape,
+    .faq-shape,
+    .faq-top-shape,
+    .process-text {
+        display: none !important;
+    }
+
+    /* =========================
+       SERVICE CARDS
+    ========================= */
+
+    .service-item {
+        margin-bottom: 30px;
+    }
+
+    /* =========================
+       FAQ
+    ========================= */
+
+    .accordion-button {
+        font-size: 18px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .footer-widget {
+        margin-bottom: 40px;
+    }
+
+    /* =========================
+       RUNNING TEXT
+    ========================= */
+
+    .running-text {
+        overflow: hidden;
+    }
+
+    /* =========================
+       SCROLL PERCENTAGE
+    ========================= */
+
+    #scroll-percentage {
+        display: none !important;
+    }
+
+    /* =========================
+       COOKIE BUTTON
+    ========================= */
+
+    .cf-cookie-toggle {
+        bottom: 15px !important;
+        left: 15px !important;
+        transform: scale(0.85);
+        z-index: 9999;
+    }
+}
+
+/* ==========================================
+   CLIENTFLOW MOBILE FIXES
+========================================== */
+
+@media (max-width: 767px) {
+
+    /* HERO */
+
+    .hero-section {
+        padding-top: 40px !important;
+        padding-bottom: 40px !important;
+    }
+
+    .hero-content {
+        padding-top: 40px !important;
+        padding-bottom: 40px !important;
+        min-height: auto !important;
+    }
+
+    .hero-content .title {
+        font-size: 58px !important;
+        line-height: 0.95 !important;
+    }
+
+    .hero-content .bottom-title {
+        font-size: 28px !important;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar-area {
+        width: 85% !important;
+    }
+
+    .side-menu-logo img {
+        max-width: 170px !important;
+    }
+
+    .sidebar-trigger.close {
+        right: 25px !important;
+        top: 25px !important;
+        font-size: 28px !important;
+    }
+
+}
+
+/* ==========================================
+   CLIENTFLOW MOBILE FINAL TWEAKS
+========================================== */
+
+@media (max-width: 767px) {
+
+    /* HERO */
+
+    .hero-section {
+        padding-top: 20px !important;
+        padding-bottom: 20px !important;
+        min-height: auto !important;
+    }
+
+    .hero-content {
+        padding-top: 20px !important;
+        padding-bottom: 20px !important;
+        min-height: auto !important;
+    }
+
+    /* zmniejszenie pustej przestrzeni pod CTA */
+
+    .hero-bottom,
+    .hero-btn-wrap,
+    .hero-area-bottom {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    /* CTA circle */
+
+    .hero-btn img,
+    .circle-btn,
+    .hero-round-btn {
+        max-width: 140px !important;
+        max-height: 140px !important;
+    }
+
+    /* Cookie icon */
+
+    .cf-cookie-toggle {
+        transform: scale(0.75) !important;
+        left: 10px !important;
+        bottom: 10px !important;
+    }
+
+    /* Sidebar logo */
+
+    .side-menu-logo img {
+        max-width: 200px !important;
+        height: auto !important;
+    }
+
+    /* Sidebar close button */
+
+    .sidebar-trigger.close {
+        top: 20px !important;
+        right: 20px !important;
+    }
+}
+
+
+[class*="col-lg-6"] {
+    width:100%
+}

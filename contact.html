@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="assets/css/carouselTicker.css">
         <link rel="stylesheet" href="assets/css/swiper.min.css">
         <link rel="stylesheet" href="assets/css/main.css">
+        <link rel="stylesheet" href="assets/css/responsive.css">
     </head>
 
     <body>
@@ -271,48 +272,67 @@
                     <div class="col-lg-7">
                         <div class="blog-contact-form form-2">
                             <div class="request-form">
-                                <form action="mail.php" method="post" id="ajax_contact" class="form-horizontal">
+                                <form action="https://api.web3forms.com/submit" method="POST" id="clientflow-contact-form" class="form-horizontal">
+
+                                        <input type="hidden" name="access_key" value="055a5cd2-db01-4761-8d3f-ea2ba5588204">
+                                        <input type="hidden" name="subject" value="New ClientFlow Strategy Request">
+                                        <input type="hidden" name="from_name" value="ClientFlow Website">
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <div class="form-item">
-                                                <input type="text" id="fullname" name="fullname" class="form-control" placeholder="First Name">
+                                                <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First Name" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-item">
-                                                <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Last Name">
+                                                <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last Name">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <div class="form-item">
-                                                <input type="text" id="email" name="email" class="form-control" placeholder="Email address*">
+                                                <input type="email" id="email" name="email" class="form-control" placeholder="Email address*" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-item">
-                                                <input type="text" id="phone" name="phone" class="form-control" placeholder="Business / Brand">
+                                                <input type="text" id="business" name="business" class="form-control" placeholder="Business / Brand">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-12">
                                             <div class="form-item">
-                                                <div class="nice-select select-control form-control country" tabindex="0"><span class="current">What do you need help with?</span><ul class="list"><li data-value="" class="option selected focus">Choose a service area</li><li data-value="vdt" class="option">Web Systems</li><li data-value="vdt" class="option">Creative</li><li data-value="vdt" class="option">SEO & Discovery</li><li data-value="vdt" class="option">AI Implementation</li><li data-value="vdt" class="option">Growth Systems</li><li data-value="vdt" class="option">Optimization</li><li data-value="can" class="option">Paid Media</li><li data-value="vdt" class="option">Automation</li><li data-value="uk" class="option">Not Sure Yet</li></ul></div>
+                                                <select name="service_area" id="service_area" class="form-control" required>
+                                                <option value="">What do you need help with?</option>
+                                                <option value="Web Systems">Web Systems</option>
+                                                <option value="Creative">Creative</option>
+                                                <option value="SEO & Discovery">SEO & Discovery</option>
+                                                <option value="AI Implementation">AI Implementation</option>
+                                                <option value="Growth Systems">Growth Systems</option>
+                                                <option value="Optimization">Optimization</option>
+                                                <option value="Paid Media">Paid Media</option>
+                                                <option value="Automation">Automation</option>
+                                                <option value="Not Sure Yet">Not Sure Yet</option>
+                                            </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-12">
                                             <div class="form-item message-item">
-                                                <textarea id="message" name="message" cols="30" rows="5" class="form-control address" placeholder="Tell us about your business, your current situation, and what you want to improve."></textarea>
+                                                <textarea id="message" name="message" cols="30" rows="5" class="form-control address" placeholder="Tell us about your business, your current situation, and what you want to improve." required></textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="submit-btn">
-                                        <button id="submit" class="rr-primary-btn" type="submit">Request Strategy</button>
-                                    </div>
+                                           <button id="submit" class="rr-primary-btn" type="submit">Request Strategy</button>
+                                        </div>
+
+                                        <p id="clientflow-form-status" style="display:none; margin-top:20px; color:#4f63ff; font-weight:600;">
+                                            Thank you. Your message has been sent successfully.
+                                        </p>
                                 </form>
                             </div>
                         </div>
@@ -437,7 +457,6 @@
         <script src="assets/js/vendor/jquery.carouselTicker.js"></script>
         <script src="assets/js/vendor/nice-select.js"></script>
         <script src="assets/js/slider.js"></script>
-        <script src="assets/js/contact.js"></script>
         <script src="assets/js/vendor/magiccursor.js"></script>
         <script src="assets/js/main.js"></script>
 
@@ -474,6 +493,68 @@
 <button class="cf-cookie-toggle" id="cfCookieToggle" aria-label="Cookie settings">
   🍪
 </button>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("clientflow-contact-form");
+    const status = document.getElementById("clientflow-form-status");
+    const submitButton = document.getElementById("submit");
+
+    if (!form) return;
+
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Sending...";
+
+        const formData = new FormData(form);
+        const formObject = Object.fromEntries(formData);
+        const formJSON = JSON.stringify(formObject);
+
+        try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: formJSON
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                form.reset();
+
+                if (window.jQuery && jQuery.fn.niceSelect) {
+                    jQuery("#service_area").niceSelect("update");
+                }
+
+                status.style.display = "block";
+                status.style.color = "#4f63ff";
+                status.textContent = "Thank you. Your message has been sent successfully.";
+
+                submitButton.textContent = "Message Sent";
+
+                setTimeout(function () {
+                    submitButton.disabled = false;
+                    submitButton.textContent = "Request Strategy";
+                }, 2500);
+            } else {
+                throw new Error(result.message || "Something went wrong.");
+            }
+        } catch (error) {
+            status.style.display = "block";
+            status.style.color = "#ff5c5c";
+            status.textContent = "Something went wrong. Please try again or email hello@clientflow.org.uk.";
+
+            submitButton.disabled = false;
+            submitButton.textContent = "Request Strategy";
+        }
+    });
+});
+</script>
 
     </body>
 </html>
