@@ -1894,51 +1894,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const acceptBtn = document.getElementById("cfAcceptCookies");
   const rejectBtn = document.getElementById("cfRejectCookies");
 
-  const GA_MEASUREMENT_ID = "G-5SS92R1R1T";
-
-  // Set up Google dataLayer and gtag globally.
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-    window.dataLayer.push(arguments);
-  }
-
-  window.gtag = gtag;
-
-  // Default consent state.
-  // Analytics and advertising storage are denied until the user accepts optional cookies.
-  gtag("consent", "default", {
-    analytics_storage: "denied",
-    ad_storage: "denied",
-    ad_user_data: "denied",
-    ad_personalization: "denied",
-    functionality_storage: "granted",
-    security_storage: "granted"
-  });
-
-  function loadGoogleTag() {
-    if (window.clientflowGoogleTagLoaded) return;
-
-    window.clientflowGoogleTagLoaded = true;
-
-    const gaScript = document.createElement("script");
-    gaScript.async = true;
-    gaScript.src =
-      "https://www.googletagmanager.com/gtag/js?id=" + GA_MEASUREMENT_ID;
-
-    document.head.appendChild(gaScript);
-
-    gtag("js", new Date());
-
-    gtag("config", GA_MEASUREMENT_ID, {
-      anonymize_ip: true
-    });
-
-    console.log("ClientFlow GA: Google tag loaded with default denied consent");
-  }
-
   function grantAnalyticsConsent() {
-    gtag("consent", "update", {
+    if (typeof window.gtag !== "function") {
+      console.log("ClientFlow GA: gtag not ready yet");
+      return;
+    }
+
+    window.gtag("consent", "update", {
       analytics_storage: "granted",
       ad_storage: "denied",
       ad_user_data: "denied",
@@ -1949,19 +1911,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log("ClientFlow GA: analytics consent granted");
 
-    // Send a page view after analytics consent is granted.
-    // This makes GA receive data after the user clicks Accept All.
-    gtag("event", "page_view", {
+    window.gtag("event", "page_view", {
       page_title: document.title,
       page_location: window.location.href,
       page_path: window.location.pathname
     });
 
     console.log("ClientFlow GA: page_view sent after consent granted");
-}
+  }
 
   function denyAnalyticsConsent() {
-    gtag("consent", "update", {
+    if (typeof window.gtag !== "function") {
+      console.log("ClientFlow GA: gtag not ready yet");
+      return;
+    }
+
+    window.gtag("consent", "update", {
       analytics_storage: "denied",
       ad_storage: "denied",
       ad_user_data: "denied",
@@ -1986,9 +1951,6 @@ document.addEventListener("DOMContentLoaded", function () {
     cookiePopup.classList.remove("is-visible");
     cookieToggle.classList.add("is-visible");
   }
-
-  // Load the Google tag on page load, but with analytics consent denied by default.
-  loadGoogleTag();
 
   const cookieChoice = localStorage.getItem("clientflowCookieChoice");
 
