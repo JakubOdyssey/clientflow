@@ -16,6 +16,9 @@ $(function() {
     // This only runs if the visitor accepted optional cookies
     // and Google Analytics has been loaded.
     function trackLeadSubmit() {
+        console.log("ClientFlow GA: trackLeadSubmit() started");
+        console.log("ClientFlow GA: gtag type is", typeof window.gtag);
+
         if (typeof window.gtag === "function") {
             window.gtag("event", "lead_submit", {
                 event_category: "lead",
@@ -24,6 +27,10 @@ $(function() {
                 page_title: document.title,
                 page_location: window.location.href
             });
+
+            console.log("ClientFlow GA: lead_submit event sent");
+        } else {
+            console.log("ClientFlow GA: lead_submit not sent because gtag is not loaded");
         }
     }
 
@@ -31,6 +38,8 @@ $(function() {
     $(form).submit(function(event) {
         // Stop the browser from submitting the form.
         event.preventDefault();
+
+        console.log("ClientFlow contact form: submit detected");
 
         // Serialize the form data.
         var formData = $(form).serialize();
@@ -42,6 +51,9 @@ $(function() {
             data: formData
         })
         .done(function(response) {
+            console.log("ClientFlow contact form: success response received");
+            console.log("ClientFlow contact form: gtag type is", typeof window.gtag);
+
             // Make sure that the formMessages div has the 'success' class.
             $(formMessages).removeClass('alert-danger');
             $(formMessages).addClass('alert-success');
@@ -52,13 +64,21 @@ $(function() {
             // Track successful lead submission.
             trackLeadSubmit();
 
+            console.log("ClientFlow contact form: lead_submit event attempted");
+
             // Clear the form.
             $('#fullname').val('');
+            $('#firstname').val('');
+            $('#lastname').val('');
             $('#email').val('');
             $('#phone').val('');
+            $('#company').val('');
+            $('#business').val('');
             $('#message').val('');
         })
         .fail(function(data) {
+            console.log("ClientFlow contact form: failed response received");
+
             // Make sure that the formMessages div has the 'error' class.
             $(formMessages).removeClass('alert-success');
             $(formMessages).addClass('alert-danger');
