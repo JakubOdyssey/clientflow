@@ -33546,4 +33546,36 @@ START: Footer CSS
   display: none !important;
   pointer-events: none !important;
 }
+
+/* CLIENTFLOW FORCE DARK MODE */
+
+html,
+body,
+html[data-theme="dark"],
+body.dark-mode {
+    background-color: #050505 !important;
+    color-scheme: dark !important;
+}
+
+html[data-theme="light"],
+html.light,
+html.light-mode,
+html.theme-light,
+html.white-version,
+body.light,
+body.light-mode,
+body.theme-light,
+body.white-version,
+body.body-light {
+    background-color: #050505 !important;
+    color: #ffffff !important;
+}
+
+#theme-toogle,
+.switcher-button {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
 /*# sourceMappingURL=main.css.map */

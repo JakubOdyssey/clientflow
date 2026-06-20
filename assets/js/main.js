@@ -14,46 +14,66 @@
         $('#rrCheckoutCouponForm').slideToggle(400);
     });
 
-    // Color Scheme Swithcer
-    const storageKey = 'theme-preference';
+    // ClientFlow Force Dark Mode
+const storageKey = 'theme-preference';
 
-    const onClick = () => {
-        theme.value = theme.value === 'light' ? 'dark' : 'light';
-        setPreference();
+const forceClientFlowDarkMode = () => {
+    try {
+        localStorage.setItem(storageKey, 'dark');
+        localStorage.setItem('theme', 'dark');
+        localStorage.setItem('mode', 'dark');
+        localStorage.setItem('color-theme', 'dark');
+        localStorage.setItem('theme-mode', 'dark');
+    } catch (e) {}
+
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.remove(
+        'light',
+        'light-mode',
+        'theme-light',
+        'white-version',
+        'body-light'
+    );
+
+    document.documentElement.classList.add('dark-mode');
+
+    if (document.body) {
+        document.body.classList.remove(
+            'light',
+            'light-mode',
+            'theme-light',
+            'white-version',
+            'body-light'
+        );
+
+        document.body.classList.add('dark-mode');
     }
 
-    const getColorPreference = () => {
-        if (localStorage.getItem(storageKey)) {
-            return localStorage.getItem(storageKey);
-        } else {
-            return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-        }
+    document.querySelector('#theme-toogle')?.setAttribute('aria-label', 'dark');
+};
+
+// set immediately
+forceClientFlowDarkMode();
+
+$(window).on("load", function () {
+    forceClientFlowDarkMode();
+
+    const themeToggle = document.querySelector('#theme-toogle');
+    if (themeToggle) {
+        themeToggle.style.display = 'none';
+        themeToggle.style.visibility = 'hidden';
+        themeToggle.style.pointerEvents = 'none';
+
+        themeToggle.addEventListener('click', function (e) {
+            e.preventDefault();
+            forceClientFlowDarkMode();
+        });
     }
+});
 
-    const setPreference = () => {
-        localStorage.setItem(storageKey, theme.value);
-        reflectPreference();
-    }
-
-    const reflectPreference = () => {
-        document.firstElementChild.setAttribute('data-theme', theme.value);
-        document.querySelector('#theme-toogle')?.setAttribute('aria-label', theme.value);
-    }
-
-    const theme = {
-        value: getColorPreference(),
-    }
-
-    // set early so no page flashes / CSS is made aware
-    reflectPreference();
-
-    $(window).on("load", function (event) {
-        // set on load so screen readers can see latest value on the button
-        reflectPreference();
-
-        // now this script can find and listen for clicks on the control
-        document.querySelector('#theme-toogle').addEventListener('click', onClick);
-    });
+document.addEventListener("DOMContentLoaded", function () {
+    forceClientFlowDarkMode();
+});
 
     /*======================================
         Preloader activation
