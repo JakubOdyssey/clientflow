@@ -502,10 +502,42 @@ document.addEventListener("DOMContentLoaded", function () {
     const status = document.getElementById("clientflow-form-status");
     const submitButton = document.getElementById("submit");
 
+    let leadSubmitTracked = false;
+
+    function trackLeadSubmit() {
+        console.log("ClientFlow GA: trackLeadSubmit started");
+        console.log("ClientFlow GA: gtag type is:", typeof window.gtag);
+
+        if (leadSubmitTracked) {
+            console.log("ClientFlow GA: lead_submit already tracked on this page load");
+            return;
+        }
+
+        if (typeof window.gtag === "function") {
+            window.gtag("event", "lead_submit", {
+                event_category: "lead",
+                event_label: "contact_form",
+                form_name: "ClientFlow contact form",
+                page_title: document.title,
+                page_location: window.location.href
+            });
+
+            leadSubmitTracked = true;
+
+            console.log("ClientFlow GA: lead_submit event sent");
+        } else {
+            console.log("ClientFlow GA: gtag not loaded, lead_submit not sent");
+        }
+    }
+
     if (!form) return;
+
+    console.log("ClientFlow contact form: inline script active");
 
     form.addEventListener("submit", async function (event) {
         event.preventDefault();
+
+        console.log("ClientFlow contact form: submit detected");
 
         submitButton.disabled = true;
         submitButton.textContent = "Sending...";
@@ -526,7 +558,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const result = await response.json();
 
-            if (response.ok) {
+            console.log("ClientFlow contact form: Web3Forms response:", result);
+
+            if (response.ok && result.success !== false) {
                 form.reset();
 
                 if (window.jQuery && jQuery.fn.niceSelect) {
@@ -539,6 +573,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 submitButton.textContent = "Message Sent";
 
+                trackLeadSubmit();
+
                 setTimeout(function () {
                     submitButton.disabled = false;
                     submitButton.textContent = "Request Strategy";
@@ -547,6 +583,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 throw new Error(result.message || "Something went wrong.");
             }
         } catch (error) {
+            console.log("ClientFlow contact form: error:", error);
+
             status.style.display = "block";
             status.style.color = "#ff5c5c";
             status.textContent = "Something went wrong. Please try again or email hello@clientflow.org.uk.";
