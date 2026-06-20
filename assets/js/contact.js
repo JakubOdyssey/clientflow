@@ -1,18 +1,14 @@
 /*
 *
 * Contact JS
-* @ThemeEaster
-* Updated for ClientFlow lead tracking
+* ClientFlow contact form + Web3Forms + Google Analytics lead tracking
 *
 */
-$(function() {
-    // Get the form.
-    var form = $('#ajax_contact');
 
-    // Get the messages div.
+$(function () {
+    var form = $('#clientflow-contact-form');
     var formMessages = $('#form-messages');
 
-    // Prevent duplicate lead tracking on the same page load.
     var leadSubmitTracked = false;
 
     function trackLeadSubmit(source) {
@@ -42,97 +38,86 @@ $(function() {
         }
     }
 
-    // Fallback tracking:
-    // If the success message appears on screen, track the lead.
-    function watchSuccessMessage() {
-        if (!formMessages.length) {
-            console.log("ClientFlow contact form: #form-messages not found");
-            return;
-        }
-
-        var target = formMessages[0];
-
-        var observer = new MutationObserver(function() {
-            var messageText = $(formMessages).text().toLowerCase();
-
-            console.log("ClientFlow contact form: message changed:", messageText);
-
-            if (
-                messageText.includes("thank you") ||
-                messageText.includes("successfully") ||
-                messageText.includes("sent successfully")
-            ) {
-                trackLeadSubmit("success_message_observer");
-            }
-        });
-
-        observer.observe(target, {
-            childList: true,
-            characterData: true,
-            subtree: true
-        });
-
-        console.log("ClientFlow contact form: success message observer active");
+    if (!form.length) {
+        console.log("ClientFlow contact form: #clientflow-contact-form not found on this page");
+        return;
     }
 
-    watchSuccessMessage();
+    console.log("ClientFlow contact form: script active");
 
-    // Set up an event listener for the contact form.
-    $(document).on('submit', '#ajax_contact', function(event) {
-        // Stop the browser from submitting the form.
+    $(document).on('submit', '#clientflow-contact-form', function (event) {
         event.preventDefault();
 
         console.log("ClientFlow contact form: submit detected");
 
-        // Serialize the form data.
-        var formData = $(this).serialize();
+        var currentForm = this;
+        var formData = new FormData(currentForm);
+        var actionUrl = $(currentForm).attr('action');
 
-        // Submit the form using AJAX.
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: formData
+        if (!actionUrl) {
+            console.log("ClientFlow contact form: no action URL found");
+
+            if (formMessages.length) {
+                formMessages
+                    .removeClass('alert-success')
+                    .addClass('alert-danger')
+                    .text('Sorry, the form is not configured correctly.');
+            }
+
+            return;
+        }
+
+        if (formMessages.length) {
+            formMessages
+                .removeClass('alert-danger alert-success')
+                .text('Sending your message...');
+        }
+
+        fetch(actionUrl, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
         })
-        .done(function(response) {
-            console.log("ClientFlow contact form: success response received");
-            console.log("ClientFlow contact form: response:", response);
-            console.log("ClientFlow contact form: gtag type is:", typeof window.gtag);
-
-            // Make sure that the formMessages div has the 'success' class.
-            $(formMessages).removeClass('alert-danger');
-            $(formMessages).addClass('alert-success');
-
-            // Set the message text.
-            $(formMessages).text(response);
-
-            // Track successful lead submission.
-            trackLeadSubmit("ajax_done");
-
-            // Clear the form.
-            $('#fullname').val('');
-            $('#firstname').val('');
-            $('#lastname').val('');
-            $('#email').val('');
-            $('#phone').val('');
-            $('#company').val('');
-            $('#business').val('');
-            $('#message').val('');
-
-            console.log("ClientFlow contact form: form cleared after success");
+        .then(function (response) {
+            return response.json();
         })
-        .fail(function(data) {
-            console.log("ClientFlow contact form: failed response received");
-            console.log("ClientFlow contact form: failed data:", data);
+        .then(function (data) {
+            console.log("ClientFlow contact form: Web3Forms response:", data);
 
-            // Make sure that the formMessages div has the 'error' class.
-            $(formMessages).removeClass('alert-success');
-            $(formMessages).addClass('alert-danger');
+            if (data.success) {
+                if (formMessages.length) {
+                    formMessages
+                        .removeClass('alert-danger')
+                        .addClass('alert-success')
+                        .text('Thank you. Your message has been sent successfully.');
+                }
 
-            // Set the message text.
-            if (data.responseText !== '') {
-                $(formMessages).text(data.responseText);
+                trackLeadSubmit("web3forms_success");
+
+                currentForm.reset();
+
+                console.log("ClientFlow contact form: form sent and cleared");
             } else {
-                $(formMessages).text('Oops! An error occurred and your message could not be sent.');
+                console.log("ClientFlow contact form: Web3Forms returned an error");
+
+                if (formMessages.length) {
+                    formMessages
+                        .removeClass('alert-success')
+                        .addClass('alert-danger')
+                        .text(data.message || 'Oops! Your message could not be sent.');
+                }
+            }
+        })
+        .catch(function (error) {
+            console.log("ClientFlow contact form: fetch error:", error);
+
+            if (formMessages.length) {
+                formMessages
+                    .removeClass('alert-success')
+                    .addClass('alert-danger')
+                    .text('Oops! An error occurred and your message could not be sent.');
             }
         });
     });
