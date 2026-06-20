@@ -1948,7 +1948,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     console.log("ClientFlow GA: analytics consent granted");
-  }
+
+    // Send a page view after analytics consent is granted.
+    // This makes GA receive data after the user clicks Accept All.
+    gtag("event", "page_view", {
+      page_title: document.title,
+      page_location: window.location.href,
+      page_path: window.location.pathname
+    });
+
+    console.log("ClientFlow GA: page_view sent after consent granted");
+}
 
   function denyAnalyticsConsent() {
     gtag("consent", "update", {
