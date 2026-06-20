@@ -1887,7 +1887,7 @@ if (document.querySelectorAll(".portfolio-19").length > 0) {
 
 })(jQuery);
 
-// ClientFlow Cookie Popup + Google Analytics Consent
+// ClientFlow Cookie Popup + Google Consent Mode
 document.addEventListener("DOMContentLoaded", function () {
   const cookiePopup = document.getElementById("cfCookiePopup");
   const cookieToggle = document.getElementById("cfCookieToggle");
@@ -1896,30 +1896,71 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const GA_MEASUREMENT_ID = "G-5SS92R1R1T";
 
-  function loadGoogleAnalytics() {
-    if (window.clientflowAnalyticsLoaded) return;
+  // Set up Google dataLayer and gtag globally.
+  window.dataLayer = window.dataLayer || [];
 
-    window.clientflowAnalyticsLoaded = true;
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+
+  window.gtag = gtag;
+
+  // Default consent state.
+  // Analytics and advertising storage are denied until the user accepts optional cookies.
+  gtag("consent", "default", {
+    analytics_storage: "denied",
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+    functionality_storage: "granted",
+    security_storage: "granted"
+  });
+
+  function loadGoogleTag() {
+    if (window.clientflowGoogleTagLoaded) return;
+
+    window.clientflowGoogleTagLoaded = true;
 
     const gaScript = document.createElement("script");
     gaScript.async = true;
     gaScript.src =
       "https://www.googletagmanager.com/gtag/js?id=" + GA_MEASUREMENT_ID;
+
     document.head.appendChild(gaScript);
-
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      window.dataLayer.push(arguments);
-    }
-
-    window.gtag = gtag;
 
     gtag("js", new Date());
 
     gtag("config", GA_MEASUREMENT_ID, {
       anonymize_ip: true
     });
+
+    console.log("ClientFlow GA: Google tag loaded with default denied consent");
+  }
+
+  function grantAnalyticsConsent() {
+    gtag("consent", "update", {
+      analytics_storage: "granted",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      functionality_storage: "granted",
+      security_storage: "granted"
+    });
+
+    console.log("ClientFlow GA: analytics consent granted");
+  }
+
+  function denyAnalyticsConsent() {
+    gtag("consent", "update", {
+      analytics_storage: "denied",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      functionality_storage: "granted",
+      security_storage: "granted"
+    });
+
+    console.log("ClientFlow GA: optional analytics consent denied");
   }
 
   function showPopup() {
@@ -1936,19 +1977,26 @@ document.addEventListener("DOMContentLoaded", function () {
     cookieToggle.classList.add("is-visible");
   }
 
+  // Load the Google tag on page load, but with analytics consent denied by default.
+  loadGoogleTag();
+
   const cookieChoice = localStorage.getItem("clientflowCookieChoice");
 
   if (cookieChoice === "accepted") {
-    loadGoogleAnalytics();
+    grantAnalyticsConsent();
 
     if (cookieToggle) {
       cookieToggle.classList.add("is-visible");
     }
   } else if (cookieChoice === "rejected") {
+    denyAnalyticsConsent();
+
     if (cookieToggle) {
       cookieToggle.classList.add("is-visible");
     }
   } else {
+    denyAnalyticsConsent();
+
     setTimeout(function () {
       showPopup();
     }, 900);
@@ -1957,7 +2005,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (acceptBtn) {
     acceptBtn.addEventListener("click", function () {
       localStorage.setItem("clientflowCookieChoice", "accepted");
-      loadGoogleAnalytics();
+      grantAnalyticsConsent();
       hidePopup();
     });
   }
@@ -1965,6 +2013,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (rejectBtn) {
     rejectBtn.addEventListener("click", function () {
       localStorage.setItem("clientflowCookieChoice", "rejected");
+      denyAnalyticsConsent();
       hidePopup();
     });
   }
