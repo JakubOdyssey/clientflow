@@ -557,6 +557,35 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    async function sendLeadToClientFlowOS(formJSON) {
+        try {
+            const crmResponse = await fetch("http://localhost:3000/api/website-leads", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: formJSON
+            });
+
+            const crmResult = await crmResponse.json().catch(function () {
+                return null;
+            });
+
+            console.log("ClientFlow CRM: response:", crmResult);
+
+            if (!crmResponse.ok) {
+                console.log("ClientFlow CRM: lead sync failed with status:", crmResponse.status);
+                return false;
+            }
+
+            console.log("ClientFlow CRM: lead sent to ClientFlow OS");
+            return true;
+        } catch (crmError) {
+            console.log("ClientFlow CRM: lead sync failed:", crmError);
+            return false;
+        }
+    }
+
     if (!form) return;
 
     console.log("ClientFlow contact form: inline script active");
@@ -588,6 +617,8 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("ClientFlow contact form: Web3Forms response:", result);
 
             if (response.ok && result.success !== false) {
+                await sendLeadToClientFlowOS(formJSON);
+
                 form.reset();
 
                 if (window.jQuery && jQuery.fn.niceSelect) {
